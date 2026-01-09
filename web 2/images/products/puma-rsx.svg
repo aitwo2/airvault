@@ -1,0 +1,28 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="300" height="300" fill="#f8f9fa" rx="10"/>
+  
+  <!-- Shoe - Puma RS-X White/Blue -->
+  <g transform="translate(150, 150)">
+    <!-- Sole -->
+    <ellipse cx="0" cy="70" rx="52" ry="10" fill="#fff" stroke="#333" stroke-width="2"/>
+    
+    <!-- Shoe body - white -->
+    <path d="M -45 70 Q -55 55 -50 15 Q -45 -10 -15 -15 L 15 -15 Q 45 -10 50 15 Q 55 55 45 70" fill="#fff" stroke="#ddd" stroke-width="2"/>
+    
+    <!-- Blue panel accent - left -->
+    <path d="M -45 50 Q -50 30 -40 0 L -20 -10 Q -35 15 -40 50" fill="#0052ff"/>
+    
+    <!-- Blue panel accent - right -->
+    <path d="M 45 50 Q 50 30 40 0 L 20 -10 Q 35 15 40 50" fill="#0052ff"/>
+    
+    <!-- Center stripe - blue -->
+    <ellipse cx="0" cy="50" rx="38" ry="8" fill="#0052ff"/>
+    
+    <!-- Toe bump -->
+    <circle cx="0" cy="15" r="28" fill="none" stroke="#0052ff" stroke-width="3" opacity="0.6"/>
+    
+    <!-- Heel cup -->
+    <path d="M -35 60 Q -40 70 -20 75 Q 0 75 20 75 Q 40 70 35 60" fill="#0052ff"/>
+  </g>
+</svg>

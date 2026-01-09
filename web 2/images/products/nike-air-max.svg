@@ -1,0 +1,27 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="300" height="300" fill="#f8f9fa" rx="10"/>
+  
+  <!-- Shoe - Nike Air Max White/Black -->
+  <g transform="translate(150, 150)">
+    <!-- Air unit visible -->
+    <ellipse cx="0" cy="60" rx="55" ry="18" fill="#e8f4f8" stroke="#0066cc" stroke-width="2"/>
+    <ellipse cx="0" cy="60" rx="50" ry="14" fill="#fff" opacity="0.4"/>
+    
+    <!-- Sole -->
+    <ellipse cx="0" cy="75" rx="50" ry="8" fill="#999" stroke="#333" stroke-width="1.5"/>
+    
+    <!-- Shoe body - white base -->
+    <path d="M -45 60 Q -55 45 -50 10 Q -45 -5 -20 -10 L 20 -10 Q 45 -5 50 10 Q 55 45 45 60" fill="#fff" stroke="#ddd" stroke-width="2"/>
+    
+    <!-- Black toe cap -->
+    <path d="M -35 40 Q -40 20 -25 -8 L 25 -8 Q 40 20 35 40 Q 0 45 -35 40" fill="#222"/>
+    
+    <!-- Gray swoosh -->
+    <path d="M -30 20 Q 0 5 30 15" fill="none" stroke="#666" stroke-width="8" stroke-linecap="round"/>
+    
+    <!-- Side panel - grey -->
+    <ellipse cx="-40" cy="30" rx="18" ry="35" fill="#ddd" opacity="0.6"/>
+    <ellipse cx="40" cy="30" rx="18" ry="35" fill="#ccc" opacity="0.6"/>
+  </g>
+</svg>

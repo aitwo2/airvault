@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export & Deploy Products - AirVault</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+            max-width: 1200px;
+            margin: 0;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+        }
+        h1, h2 {
+            color: #ff6b6b;
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 10px;
+        }
+        pre {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border: 1px solid #444;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: #ff5252;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        .success {
+            background: #1a3a1a;
+            color: #4caf50;
+            border: 1px solid #4caf50;
+        }
+        .error {
+            background: #3a1a1a;
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+        }
+        .instructions {
+            background: #1a2a3a;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 3px solid #64b5f6;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📤 Export & Deploy Your Products</h1>
+        <p>Export your custom products from localStorage and prepare them for deployment</p>
+    </div>
+
+    <div class="container">
+        <h2>Step 1: View Your Custom Products</h2>
+        <button onclick="loadMyProducts()">📋 Load My Products</button>
+        <pre id="productsOutput"></pre>
+        <div id="status"></div>
+    </div>
+
+    <div class="container">
+        <h2>Step 2: Export & Copy</h2>
+        <button onclick="copyToClipboard()">📋 Copy All Products</button>
+        <button onclick="downloadAsJSON()">📥 Download as JSON File</button>
+        <p id="copyStatus" style="color: #4caf50;"></p>
+    </div>
+
+    <div class="container instructions">
+        <h2>📝 How to Deploy Your Products:</h2>
+        <ol>
+            <li><strong>Click "Load My Products"</strong> - See all your custom products with image URLs</li>
+            <li><strong>Click "Copy All Products"</strong> - This copies the product array</li>
+            <li><strong>Send me the copied data</strong> - Paste it in chat or email</li>
+            <li><strong>I will add your products to the deployment</strong></li>
+            <li><strong>Your site will deploy with YOUR products and images!</strong></li>
+        </ol>
+    </div>
+
+    <div class="container">
+        <h2>Your Products Details:</h2>
+        <div id="productDetails"></div>
+    </div>
+
+    <script>
+        function loadMyProducts() {
+            try {
+                const products = JSON.parse(localStorage.getItem('adminProducts')) || [];
+                
+                if (products.length === 0) {
+                    document.getElementById('status').innerHTML = '<div class="status error">✗ No products found in localStorage</div>';
+                    return;
+                }
+
+                // Display as formatted JSON
+                document.getElementById('productsOutput').textContent = JSON.stringify(products, null, 2);
+                
+                // Display summary
+                let summary = '<div style="margin-top: 20px;"><strong>Summary:</strong><br>';
+                products.forEach((p, i) => {
+                    const imagePreview = p.image.startsWith('http') ? '🔗 URL' : (p.image.startsWith('data:') ? '📊 Data URL' : '😊 Emoji');
+                    summary += `<br><strong>${i+1}. ${p.name}</strong><br>`;
+                    summary += `   Brand: ${p.brand} | Price: R${p.price.toFixed(2)} | Image: ${imagePreview}<br>`;
+                    summary += `   Description: ${p.description || 'No description'}<br>`;
+                });
+                summary += '</div>';
+                
+                document.getElementById('productDetails').innerHTML = summary;
+                document.getElementById('status').innerHTML = '<div class="status success">✓ Loaded ' + products.length + ' products from your browser!</div>';
+                
+            } catch (e) {
+                document.getElementById('status').innerHTML = '<div class="status error">✗ Error: ' + e.message + '</div>';
+            }
+        }
+
+        function copyToClipboard() {
+            try {
+                const products = JSON.parse(localStorage.getItem('adminProducts')) || [];
+                const text = JSON.stringify(products, null, 2);
+                navigator.clipboard.writeText(text).then(() => {
+                    document.getElementById('copyStatus').textContent = '✓ Copied ' + products.length + ' products to clipboard!';
+                    setTimeout(() => {
+                        document.getElementById('copyStatus').textContent = '';
+                    }, 3000);
+                });
+            } catch (e) {
+                document.getElementById('copyStatus').textContent = '✗ Copy failed: ' + e.message;
+            }
+        }
+
+        function downloadAsJSON() {
+            try {
+                const products = JSON.parse(localStorage.getItem('adminProducts')) || [];
+                const dataStr = JSON.stringify(products, null, 2);
+                const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'airvault-products.json';
+                link.click();
+                document.getElementById('copyStatus').textContent = '✓ Downloaded products as JSON file!';
+            } catch (e) {
+                document.getElementById('copyStatus').textContent = '✗ Download failed: ' + e.message;
+            }
+        }
+
+        // Auto-load on page load
+        window.addEventListener('load', loadMyProducts);
+    </script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - AirVault Accessories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            padding: 20px;
+        }
+        .invoice-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #ff6b6b;
+        }
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo {
+            height: 60px;
+        }
+        .company-info h1 {
+            color: #ff6b6b;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .company-info p {
+            color: #666;
+            font-size: 12px;
+            margin: 2px 0;
+        }
+        .invoice-details {
+            text-align: right;
+        }
+        .invoice-details h2 {
+            color: #1a1a1a;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .invoice-details p {
+            font-size: 13px;
+            color: #666;
+            margin: 3px 0;
+        }
+        .invoice-details .label {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .details-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .detail-block {
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .detail-block h3 {
+            color: #ff6b6b;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .detail-block p {
+            font-size: 13px;
+            color: #666;
+            margin: 4px 0;
+            line-height: 1.6;
+        }
+        .detail-block strong {
+            color: #1a1a1a;
+        }
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        .items-table th {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .items-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+        .items-table tr:hover {
+            background: #f9f9f9;
+        }
+        .items-table .amount {
+            text-align: right;
+        }
+        .summary-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .summary-box {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .summary-box h3 {
+            color: #1a1a1a;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 13px;
+            color: #666;
+        }
+        .summary-row.total {
+            border-top: 2px solid #ff6b6b;
+            padding-top: 15px;
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+        .notes {
+            background: #ffe6e6;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+        }
+        .notes h4 {
+            color: #1a1a1a;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        .notes p {
+            font-size: 12px;
+            color: #333;
+            line-height: 1.5;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 11px;
+            color: #999;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .invoice-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            .invoice-container {
+                padding: 20px;
+            }
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .invoice-details {
+                text-align: left;
+            }
+            .details-section {
+                grid-template-columns: 1fr;
+            }
+            .summary-section {
+                grid-template-columns: 1fr;
+            }
+            .items-table th,
+            .items-table td {
+                padding: 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-section">
+                <img src="https://localhost:8000/images/logo.svg" alt="AirVault Accessories" class="logo">
+                <div class="company-info">
+                    <h1>AIRVAULT</h1>
+                    <p>ACCESSORIES</p>
+                    <p style="margin-top: 8px; color: #666;">Premium Authentic Sneakers</p>
+                </div>
+            </div>
+            <div class="invoice-details">
+                <h2>INVOICE</h2>
+                <p><span class="label">Invoice No:</span> {{ORDER_NUMBER}}</p>
+                <p><span class="label">Date:</span> {{ORDER_DATE}}</p>
+                <p><span class="label">Due Date:</span> {{DUE_DATE}}</p>
+            </div>
+        </div>
+
+        <!-- Customer & Company Details -->
+        <div class="details-section">
+            <div class="detail-block">
+                <h3>Bill To</h3>
+                <p><strong>{{CUSTOMER_NAME}}</strong></p>
+                <p>{{CUSTOMER_ADDRESS}}</p>
+                <p>{{CUSTOMER_CITY}}, {{CUSTOMER_POSTAL}}</p>
+                <p style="margin-top: 8px;"><strong>Phone:</strong> {{CUSTOMER_PHONE}}</p>
+                <p><strong>Email:</strong> {{CUSTOMER_EMAIL}}</p>
+            </div>
+            <div class="detail-block">
+                <h3>Ship To</h3>
+                <p><strong>{{CUSTOMER_NAME}}</strong></p>
+                <p>{{CUSTOMER_ADDRESS}}</p>
+                <p>{{CUSTOMER_CITY}}, {{CUSTOMER_POSTAL}}</p>
+                <p style="margin-top: 8px;"><strong>Delivery Date:</strong> {{DELIVERY_DATE}}</p>
+            </div>
+        </div>
+
+        <!-- Items Table -->
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th style="width: 50%;">Description</th>
+                    <th style="width: 15%; text-align: center;">Quantity</th>
+                    <th style="width: 17%; text-align: right;">Unit Price</th>
+                    <th style="width: 18%; text-align: right;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ORDER_ITEMS}}
+            </tbody>
+        </table>
+
+        <!-- Summary & Notes -->
+        <div class="summary-section">
+            <div class="notes">
+                <h4>Payment Information</h4>
+                <p><strong>Payment Method:</strong> {{PAYMENT_METHOD}}</p>
+                {{PAYMENT_DETAILS}}
+                <p style="margin-top: 10px; font-size: 11px; color: #666;">Thank you for your business! We appreciate your order and look forward to serving you again.</p>
+            </div>
+            <div class="summary-box">
+                <h3>Summary</h3>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>R{{SUBTOTAL}}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>R{{SHIPPING}}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (0%)</span>
+                    <span>R0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total Amount</span>
+                    <span>R{{TOTAL}}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>AirVault Accessories</strong> | Premium Authentic Sneakers Worldwide</p>
+            <p>📧 airvaultaccessories@gmail.com | 📱 +27 83 402 1278 | 🌐 instagram.com/airvaultaccessories</p>
+            <p style="margin-top: 10px;">© 2026 AirVault Accessories. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

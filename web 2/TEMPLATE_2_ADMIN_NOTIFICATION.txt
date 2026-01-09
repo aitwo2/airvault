@@ -1,0 +1,61 @@
+Subject: 🔔 New Order Alert #{{order_number}} - AirVault Admin Notification
+
+---
+
+PRIORITY: NEW ORDER RECEIVED
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ORDER ALERT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A new customer order has been placed and is awaiting processing.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CUSTOMER INFORMATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Customer Name:       {{customer_name}}
+Email Address:       {{customer_email}}
+Phone Number:        {{customer_phone}}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ORDER DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Order Number:        {{order_number}}
+Order Date:          {{order_date}}
+Order Status:        ⏳ PENDING PROCESSING
+Order Total:         R{{total}}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ITEMS IN ORDER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{{items}}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PAYMENT INFORMATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Payment Method:      {{payment_method}}
+Amount Due:          R{{total}}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ACTION REQUIRED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Review and process this order in your admin dashboard
+✓ Verify customer details and payment method
+✓ Confirm stock availability for all items
+✓ Arrange shipment and update customer with tracking info
+
+Access Order Management:
+[Login to Admin Dashboard]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This is an automated notification from the AirVault Order Management System.
+Please do not reply to this email.
+
+AirVault Accessories | Admin Portal
+© 2026 AirVault Accessories. All rights reserved.

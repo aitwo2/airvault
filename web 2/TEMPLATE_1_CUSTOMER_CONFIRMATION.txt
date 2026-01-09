@@ -1,0 +1,71 @@
+Subject: ✓ Order Confirmed! #{{order_number}} - AirVault Accessories
+
+---
+
+Dear {{customer_name}},
+
+Thank you for choosing AirVault Accessories! We're delighted to confirm that your order has been received and is now being processed with priority care.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ORDER SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Order Number:        {{order_number}}
+Order Date:          {{order_date}}
+Expected Delivery:   {{delivery_date}}
+Order Status:        ✓ CONFIRMED - Processing
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ITEMS ORDERED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{{items}}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PAYMENT & PRICING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Subtotal:            R{{subtotal}}
+Shipping:            R{{shipping}}
+─────────────────────────────────────────
+TOTAL AMOUNT DUE:    R{{total}} (Final)
+
+Payment Method:      {{payment_method}}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DELIVERY DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{{customer_name}}
+{{address}}
+Phone: {{phone}}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WHAT'S NEXT?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📦 Your order will be processed within 24 hours
+📬 You'll receive a shipping notification with tracking details
+🚚 Expected delivery within 7-10 business days
+✓ We're committed to delivering your order safely and on time
+
+Track Your Order: http://localhost:8000/tracking.html?order={{order_number}}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NEED HELP?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If you have any questions about your order, our customer service team is here to help:
+
+Email:    airvaultaccessories@gmail.com
+Website:  www.airvault.com
+
+We appreciate your business and look forward to getting your order to you quickly!
+
+Best regards,
+
+AirVault Accessories Team
+"Quality Products. Delivered with Care."
+
+© 2026 AirVault Accessories. All rights reserved.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

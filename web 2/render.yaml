@@ -1,0 +1,38 @@
+# Render Deployment Configuration
+
+web:
+  commands:
+    start: node server.js
+  envVars:
+    - key: PORT
+      fromDatabase:
+        name: airvault
+        property: defaultPort
+      sync: false
+
+staticSite:
+  buildCommand: echo "Static assets ready"
+  startCommand: node server.js
+  routes:
+    - path: /
+      dest: /index.html
+    - path: /admin.html
+      dest: /admin.html
+    - path: /products.html
+      dest: /products.html
+    - path: /cart.html
+      dest: /cart.html
+    - path: /contact.html
+      dest: /contact.html
+    - path: /about.html
+      dest: /about.html
+    - path: /css/*
+      dest: /css/$1
+    - path: /js/*
+      dest: /js/$1
+    - path: /images/*
+      dest: /images/$1
+    - path: /lib/*
+      dest: /lib/$1
+    - path: /templates/*
+      dest: /templates/$1

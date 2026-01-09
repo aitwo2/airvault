@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - AirVault Accessories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #1a1a1a 100%);
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .logo {
+            height: 60px;
+            margin-bottom: 15px;
+        }
+        .header h1 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #fff;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px 20px;
+        }
+        .greeting {
+            color: #1a1a1a;
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .order-number {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ff6b6b;
+        }
+        .order-number p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .order-number strong {
+            color: #ff6b6b;
+            font-size: 18px;
+        }
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 14px;
+        }
+        .items-table th {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .items-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        .items-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        .items-table .price {
+            text-align: right;
+        }
+        .summary {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+        .summary-row.total {
+            border-top: 2px solid #ff6b6b;
+            padding-top: 15px;
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+        .delivery-info {
+            background: #ffe6e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ff6b6b;
+        }
+        .delivery-info h3 {
+            color: #1a1a1a;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .delivery-info p {
+            font-size: 14px;
+            color: #333;
+            margin: 5px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 20px 0;
+            transition: transform 0.3s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        .footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .footer a {
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+        .footer-links {
+            margin: 10px 0;
+        }
+        .footer-links a {
+            margin: 0 10px;
+        }
+        .highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            .email-container {
+                border-radius: 0;
+            }
+            .header {
+                padding: 20px 15px;
+            }
+            .content {
+                padding: 20px 15px;
+            }
+            .items-table {
+                font-size: 12px;
+            }
+            .items-table th,
+            .items-table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <img src="https://localhost:8000/images/logo.svg" alt="AirVault Accessories" class="logo">
+            <h1>Order Confirmed!</h1>
+            <p>Your purchase has been received and is being prepared</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <p class="greeting">Hi <span class="highlight">{{CUSTOMER_NAME}}</span>,</p>
+            <p style="margin-bottom: 20px;">Thank you for your order! We're excited to get your new sneakers to you. Your order has been received and is now being processed.</p>
+
+            <!-- Order Number -->
+            <div class="order-number">
+                <p>Order Number: <strong>{{ORDER_NUMBER}}</strong></p>
+                <p>Order Date: {{ORDER_DATE}}</p>
+                <p>Estimated Delivery: {{DELIVERY_DATE}}</p>
+            </div>
+
+            <!-- Items Table -->
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th class="price">Price</th>
+                        <th class="price">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ORDER_ITEMS}}
+                </tbody>
+            </table>
+
+            <!-- Summary -->
+            <div class="summary">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>R{{SUBTOTAL}}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>R{{SHIPPING}}</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total Amount</span>
+                    <span>R{{TOTAL}}</span>
+                </div>
+            </div>
+
+            <!-- Delivery Information -->
+            <div class="delivery-info">
+                <h3>📍 Delivery Address</h3>
+                <p><strong>{{CUSTOMER_NAME}}</strong></p>
+                <p>{{CUSTOMER_ADDRESS}}<br>{{CUSTOMER_CITY}}, {{CUSTOMER_POSTAL}}</p>
+                <p>📞 {{CUSTOMER_PHONE}}</p>
+            </div>
+
+            <!-- Payment Method -->
+            {{PAYMENT_INFO}}
+
+            <!-- Call to Action -->
+            <p style="text-align: center; margin-top: 30px;">
+                <a href="http://localhost:8000/tracking.html?order={{ORDER_NUMBER}}" class="cta-button">Track Your Order</a>
+            </p>
+
+            <!-- Help Section -->
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 30px; font-size: 13px;">
+                <p><strong>Questions?</strong></p>
+                <p>If you have any questions about your order, please don't hesitate to contact us:</p>
+                <p style="margin-top: 10px;">
+                    📧 Email: <a href="mailto:airvaultaccessories@gmail.com" style="color: #ff6b6b;">airvaultaccessories@gmail.com</a><br>
+                    📱 WhatsApp: <a href="https://wa.me/27834021278" style="color: #ff6b6b;">083 402 1278</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-links">
+                <a href="http://localhost:8000">Home</a>
+                <a href="http://localhost:8000/products.html">Shop</a>
+                <a href="http://localhost:8000/contact.html">Contact</a>
+            </div>
+            <p style="margin-top: 15px;">© 2026 AirVault Accessories. All rights reserved.</p>
+            <p style="margin-top: 10px; opacity: 0.7;">
+                <a href="https://instagram.com/airvaultaccessories">Instagram</a> | 
+                <a href="#">Facebook</a> | 
+                <a href="#">Twitter</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

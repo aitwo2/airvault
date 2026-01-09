@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking - AirVault Accessories</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .tracking-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .tracking-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .order-number {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .tracking-info {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .tracking-info label {
+            font-weight: bold;
+            color: #666;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .tracking-info p {
+            color: #1a1a1a;
+            margin: 0;
+        }
+        .status-timeline {
+            margin: 30px 0;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: #ddd;
+            border-radius: 50%;
+            margin-right: 20px;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+        .timeline-dot.active {
+            background: var(--primary-color);
+        }
+        .timeline-dot.delivered {
+            background: #4caf50;
+        }
+        .timeline-content h4 {
+            margin: 0 0 5px 0;
+            color: #1a1a1a;
+        }
+        .timeline-content p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: #ff4444;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <img src="images/logo.svg" alt="AirVault Accessories" class="logo-img">
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <a href="https://wa.me/27834021278" style="background: transparent; padding: 0; text-decoration: none; font-weight: bold; transition: 0.3s; display: flex; align-items: center; justify-content: center;" target="_blank" title="WhatsApp"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 35px; height: 35px; object-fit: contain;"></a>
+                    <a href="https://instagram.com/airvaultaccessories" style="background: #E1306C; color: white; padding: 8px 12px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.3s;" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section style="padding: 60px 0; background: white; min-height: calc(100vh - 200px);">
+        <div class="container">
+            <div class="tracking-container">
+                <div class="tracking-card">
+            <div class="order-number" id="orderNumber">Order #AV...</div>
+            
+            <div class="tracking-info">
+                <label>Customer Name:</label>
+                <p id="customerName">-</p>
+            </div>
+
+            <div class="tracking-info">
+                <label>Email:</label>
+                <p id="customerEmail">-</p>
+            </div>
+
+            <div class="tracking-info">
+                <label>Phone:</label>
+                <p id="customerPhone">-</p>
+            </div>
+
+            <div class="tracking-info">
+                <label>Delivery Address:</label>
+                <p id="customerAddress">-</p>
+            </div>
+
+            <div class="tracking-info">
+                <label>Total Amount:</label>
+                <p id="totalAmount">R0.00</p>
+            </div>
+
+            <div class="tracking-info">
+                <label>Order Date:</label>
+                <p id="orderDate">-</p>
+            </div>
+
+            <div class="tracking-info">
+                <label>Estimated Delivery:</label>
+                <p id="deliveryDate">-</p>
+            </div>
+
+            <div class="status-timeline">
+                <h3>Delivery Status</h3>
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-content">
+                        <h4>Order Confirmed</h4>
+                        <p id="confirmedDate">-</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-content">
+                        <h4>Processing</h4>
+                        <p>Your order is being prepared</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-content">
+                        <h4>In Transit</h4>
+                        <p>Your order is on its way</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot" id="deliveredDot"></div>
+                    <div class="timeline-content">
+                        <h4>Delivered</h4>
+                        <p id="deliveredDate">-</p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="products.html" class="back-btn">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Function to calculate business days
+        function addBusinessDays(date, days) {
+            let current = new Date(date);
+            let added = 0;
+            while (added < days) {
+                current.setDate(current.getDate() + 1);
+                // Check if it's a weekday (0 = Sunday, 6 = Saturday)
+                if (current.getDay() !== 0 && current.getDay() !== 6) {
+                    added++;
+                }
+            }
+            return current;
+        }
+
+        // Function to count business days between two dates
+        function countBusinessDays(startDate, endDate) {
+            let count = 0;
+            let current = new Date(startDate);
+            while (current <= endDate) {
+                if (current.getDay() !== 0 && current.getDay() !== 6) {
+                    count++;
+                }
+                current.setDate(current.getDate() + 1);
+            }
+            return count;
+        }
+
+        // Get order number from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderNumber = urlParams.get('order');
+
+        if (orderNumber) {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const order = orders.find(o => o.orderNumber === orderNumber);
+
+            if (order) {
+                document.getElementById('orderNumber').textContent = 'Order #' + order.orderNumber;
+                document.getElementById('customerName').textContent = order.customerName;
+                document.getElementById('customerEmail').textContent = order.customerEmail;
+                document.getElementById('customerPhone').textContent = order.customerPhone;
+                document.getElementById('customerAddress').textContent = order.customerAddress;
+                document.getElementById('totalAmount').textContent = 'R' + order.total.toFixed(2);
+                
+                const orderDate = new Date(order.orderDate);
+                const today = new Date();
+
+                // Calculate delivery date: 14 business days from order date
+                const deliveryDate = addBusinessDays(orderDate, 14);
+
+                document.getElementById('orderDate').textContent = orderDate.toLocaleDateString();
+                document.getElementById('confirmedDate').textContent = orderDate.toLocaleDateString();
+                document.getElementById('deliveryDate').textContent = deliveryDate.toLocaleDateString();
+
+                // Check if 14 business days have passed
+                const businessDaysPassed = countBusinessDays(orderDate, today);
+                if (businessDaysPassed >= 14) {
+                    document.getElementById('deliveredDot').className = 'timeline-dot delivered';
+                    document.getElementById('deliveredDate').textContent = 'Delivered on ' + deliveryDate.toLocaleDateString();
+                } else {
+                    document.getElementById('deliveredDate').textContent = 'Expected on ' + deliveryDate.toLocaleDateString() + ' (' + (14 - businessDaysPassed) + ' business days remaining)';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirVault Accessories - Premium Authentic Sneakers</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-helpers.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <img src="images/logo.svg" alt="AirVault Accessories" class="logo-img">
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="products.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <a href="https://wa.me/27834021278" style="background: transparent; padding: 0; text-decoration: none; font-weight: bold; transition: 0.3s; display: flex; align-items: center; justify-content: center;" target="_blank" title="WhatsApp"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 35px; height: 35px; object-fit: contain;"></a>
+                    <a href="https://instagram.com/airvaultaccessories" style="background: #E1306C; color: white; padding: 8px 12px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.3s;" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 id="heroTitle">Authentic Sneakers for Every Style</h1>
+            <p id="heroSubtitle">Discover the world's most coveted sneaker brands at AirVault</p>
+            <a href="products.html" class="btn btn-primary">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Featured Brands Section -->
+    <section class="brands-section">
+        <div class="container">
+            <h2>Featured Brands</h2>
+            <div class="brands-grid" id="brandsGrid">
+                <!-- Brands loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="featured-section">
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="products-grid" id="featuredProducts">
+                <!-- Featured products loaded dynamically -->
+                <div class="product-card">
+                    <div class="product-image">👟</div>
+                    <h3>Adidas Yeezy 350 V2</h3>
+                    <p class="brand">Adidas</p>
+                    <p class="price">$229.99</p>
+                    <button class="btn btn-small" onclick="addToCart('Adidas Yeezy 350 V2', 229.99)">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">👟</div>
+                    <h3>New Balance 990v6</h3>
+                    <p class="brand">New Balance</p>
+                    <p class="price">$184.99</p>
+                    <button class="btn btn-small" onclick="addToCart('New Balance 990v6', 184.99)">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">👟</div>
+                    <h3>Puma RS-X</h3>
+                    <p class="brand">Puma</p>
+                    <p class="price">$129.99</p>
+                    <button class="btn btn-small" onclick="addToCart('Puma RS-X', 129.99)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2>Why Choose AirVault</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <h3>100% Authentic</h3>
+                    <p>All products verified authentic with certificates of authenticity</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <h3>Fast Shipping</h3>
+                    <p>Free shipping on orders over $50 with expedited options available</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <h3>Easy Returns</h3>
+                    <p>30-day hassle-free money-back guarantee on all purchases</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <h3>24/7 Support</h3>
+                    <p>Dedicated customer service team ready to help you anytime</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section class="reviews-section" style="background: #f9f9f9; padding: 60px 0; margin: 40px 0;">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px;">What Our Customers Say</h2>
+            <div id="customerReviewsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <!-- Reviews loaded from admin -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2>Stay Updated</h2>
+            <p>Get exclusive deals and new releases first</p>
+            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>About Us</h4>
+                    <p>AirVault is your trusted source for authentic sneakers from all major brands worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>Email: <a href="mailto:airvaultaccessories@gmail.com">airvaultaccessories@gmail.com</a></p>
+                    <p>WhatsApp: <a href="https://wa.me/27834021278">+27 (0)83 402 1278</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#">Instagram</a>
+                        <a href="#">Facebook</a>
+                        <a href="#">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 AirVault Accessories. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Detect if running on Netlify
+        const IS_NETLIFY = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+        const API_BASE = IS_NETLIFY ? '/.netlify/functions' : 'http://localhost:8000';
+
+        // Default homepage settings
+        const defaultHomepageSettings = {
+            heroImage: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&h=400&fit=crop',
+            heroTitle: 'Authentic Sneakers for Every Style',
+            heroSubtitle: 'Discover the latest drops and timeless classics from top brands worldwide',
+            heroButton: 'Shop Now',
+            brands: [
+                { name: 'Nike', description: 'Premium athletic footwear', image: 'https://via.placeholder.com/150?text=Nike' },
+                { name: 'Adidas', description: 'Classic and innovative styles', image: 'https://via.placeholder.com/150?text=Adidas' },
+                { name: 'Puma', description: 'Performance meets style', image: 'https://via.placeholder.com/150?text=Puma' },
+                { name: 'New Balance', description: 'Comfort and quality', image: 'https://via.placeholder.com/150?text=New+Balance' }
+            ]
+        };
+
+        // Load homepage settings on page load
+        async function loadHomepageContent() {
+            let settings = JSON.parse(JSON.stringify(defaultHomepageSettings)); // Deep copy
+
+            // First, try to load from Firebase if available
+            if (typeof loadHeroFromFirebase !== 'undefined') {
+                loadHeroFromFirebase(heroData => {
+                    if (heroData) {
+                        settings.heroTitle = heroData.title;
+                        settings.heroSubtitle = heroData.subtitle;
+                        updatePageWithSettings(settings);
+                    }
+                });
+                
+                loadBrandsFromFirebase(brandsData => {
+                    if (brandsData) {
+                        settings.brands = Array.isArray(brandsData) ? brandsData : Object.values(brandsData);
+                        updatePageWithSettings(settings);
+                    }
+                });
+
+                // Load reviews from Firebase
+                if (typeof loadReviewsFromFirebase !== 'undefined') {
+                    loadReviewsFromFirebase(reviewsData => {
+                        if (reviewsData) {
+                            displayCustomerReviews(reviewsData);
+                        }
+                    });
+                }
+            }
+
+            // Also check localStorage (for local dev and fallback)
+            const heroSection = JSON.parse(localStorage.getItem('heroSection'));
+            if (heroSection) {
+                settings.heroTitle = heroSection.title;
+                settings.heroSubtitle = heroSection.subtitle;
+            }
+
+            const featuredBrands = JSON.parse(localStorage.getItem('featuredBrands'));
+            if (featuredBrands) {
+                settings.brands = featuredBrands;
+            }
+
+            // Load reviews from localStorage
+            const customerReviews = JSON.parse(localStorage.getItem('customerReviews'));
+            if (customerReviews) {
+                displayCustomerReviews(customerReviews);
+            }
+            
+            updatePageWithSettings(settings);
+        }
+
+        function updatePageWithSettings(settings) {
+            // Update hero section background image
+            const heroSection_el = document.querySelector('.hero');
+            if (heroSection_el && settings.heroImage) {
+                heroSection_el.style.backgroundImage = `url('${settings.heroImage}')`;
+                heroSection_el.style.backgroundSize = 'cover';
+                heroSection_el.style.backgroundPosition = 'center';
+                heroSection_el.style.backgroundAttachment = 'fixed';
+            }
+            
+            if (settings.heroTitle) {
+                const heroTitle = document.getElementById('heroTitle');
+                if (heroTitle) {
+                    heroTitle.textContent = settings.heroTitle;
+                }
+            }
+            
+            if (settings.heroSubtitle) {
+                const heroSubtitle = document.getElementById('heroSubtitle');
+                if (heroSubtitle) {
+                    heroSubtitle.textContent = settings.heroSubtitle;
+                }
+            }
+            
+            // Update brands grid
+            if (settings.brands && Array.isArray(settings.brands)) {
+                const brandsGrid = document.getElementById('brandsGrid');
+                if (brandsGrid) {
+                    brandsGrid.innerHTML = '';
+                    settings.brands.forEach(brand => {
+                        const brandCard = document.createElement('div');
+                        brandCard.className = 'brand-card';
+                        const brandImage = brand.image || 'https://via.placeholder.com/150';
+                        brandCard.innerHTML = `
+                            <div class="brand-image" style="overflow: hidden; border-radius: 4px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; min-height: 100px;">
+                                <img src="${brandImage}" alt="${brand.name}" style="width: 100%; height: 100%; object-fit: contain; padding: 10px;">
+                            </div>
+                            <h3>${brand.name}</h3>
+                            <p>${brand.description}</p>
+                        `;
+                        brandsGrid.appendChild(brandCard);
+                    });
+                }
+            }
+            
+            // Update featured products - get first 4 from adminProducts
+            const adminProducts = JSON.parse(localStorage.getItem('adminProducts')) || [];
+            if (adminProducts.length > 0) {
+                const featuredProducts = document.getElementById('featuredProducts');
+                if (featuredProducts) {
+                    featuredProducts.innerHTML = '';
+                    const productsToShow = adminProducts.slice(0, 4);
+                    productsToShow.forEach(product => {
+                        const productCard = document.createElement('div');
+                        productCard.className = 'product-card';
+                        const image = product.image || '👟';
+                        const price = parseFloat(product.price) || 0;
+                        const isImageUrl = image.startsWith('http') || image.startsWith('data:');
+                        const escapedName = product.name.replace(/'/g, "\\'");
+                        const escapedImage = image.replace(/'/g, "\\'");
+                        productCard.innerHTML = `
+                            <div class="product-image">
+                                ${isImageUrl ? `<img src="${image}" alt="${product.name}">` : `<div style="font-size: 3em;">${image}</div>`}
+                            </div>
+                            <h3>${product.name}</h3>
+                            <p class="brand">${product.brand}</p>
+                            ${product.description ? `<p class="description">${product.description}</p>` : ''}
+                            <p class="price">R${price.toFixed(2)}</p>
+                            <button class="btn btn-small" onclick="addToCart('${escapedName}', ${price}, '${escapedImage}')">Add to Cart</button>
+                        `;
+                        featuredProducts.appendChild(productCard);
+                    });
+                }
+            }
+        }
+
+        function displayCustomerReviews(reviews) {
+            const reviewsGrid = document.getElementById('customerReviewsGrid');
+            if (!reviewsGrid) return;
+
+            if (!reviews || reviews.length === 0) {
+                reviewsGrid.innerHTML = '<p style="text-align: center; color: #999; grid-column: 1/-1;">No reviews yet</p>';
+                return;
+            }
+
+            reviewsGrid.innerHTML = '';
+            const reviewsArray = Array.isArray(reviews) ? reviews : Object.values(reviews);
+            reviewsArray.slice(0, 6).forEach(review => {
+                const reviewCard = document.createElement('div');
+                reviewCard.style.cssText = 'background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column;';
+                
+                const ratingStars = '⭐'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+                const avatarUrl = review.avatar || `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`;
+                
+                reviewCard.innerHTML = `
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <img src="${avatarUrl}" alt="${review.name}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; flex-shrink: 0;">
+                        <div style="flex: 1;">
+                            <h4 style="margin: 0; color: #1a1a1a; font-size: 1rem;">${review.name}</h4>
+                            <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">${ratingStars}</div>
+                        </div>
+                    </div>
+                    <p style="margin: 0; color: #666; font-size: 0.95rem; line-height: 1.6; flex: 1;">"${review.text}"</p>
+                `;
+                reviewsGrid.appendChild(reviewCard);
+            });
+        }
+
+        // Load content when page loads
+        document.addEventListener('DOMContentLoaded', loadHomepageContent);
+
+        // Poll for updates every 5 seconds
+        setInterval(() => {
+            loadHomepageContent();
+        }, 5000);
+    </script>
+</body>
+</html>

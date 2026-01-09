@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - AirVault Accessories</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: #f5f5f5;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #ff6b6b 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .admin-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5rem;
+        }
+
+        .admin-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .admin-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .admin-panel h2 {
+            color: #1a1a1a;
+            border-bottom: 3px solid #ff6b6b;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-add {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-add:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .products-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .product-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-info h4 {
+            margin: 0 0 5px 0;
+            color: #1a1a1a;
+        }
+
+        .product-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .btn-small {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-delete {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #ff5252;
+        }
+
+        .btn-edit {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #1976D2;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .status-message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #4caf50;
+            display: block;
+        }
+
+        .status-message.error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #f44336;
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card h4 {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 10px 0 0 0;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ff6b6b;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+        }
+
+        .modal-header .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-header .close-btn:hover {
+            color: #1a1a1a;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-footer button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-save {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #ff5252;
+        }
+
+        .btn-cancel {
+            background: #f0f0f0;
+            color: #1a1a1a;
+            border: 1px solid #ddd;
+        }
+
+        .btn-cancel:hover {
+            background: #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-header h1 {
+                font-size: 2rem;
+            }
+
+            .admin-panel {
+                padding: 20px;
+            }
+
+            .admin-panel h2 {
+                font-size: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="admin-header">
+        <h1>🛠️ Admin Portal</h1>
+        <p>Manage products, banking details, and monitor your store</p>
+    </div>
+
+    <div class="admin-container">
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>Total Products</h4>
+                <div class="value" id="totalProducts">0</div>
+            </div>
+            <div class="stat-card">
+                <h4>Last Updated</h4>
+                <div class="value" id="lastUpdated" style="font-size: 0.9rem; margin-top: 5px;">--</div>
+            </div>
+        </div>
+
+        <div class="admin-grid">
+            <!-- Add Product Panel -->
+            <div class="admin-panel">
+                <h2>📦 Add New Product</h2>
+                <div id="statusMessage" class="status-message"></div>
+                
+                <form id="addProductForm" onsubmit="addProduct(event)">
+                    <div class="form-group">
+                        <label for="productName">Product Name *</label>
+                        <input type="text" id="productName" required placeholder="e.g., Nike Air Jordan 1">
+                    </div>
+                    <div class="form-group">
+                        <label for="productBrand">Brand *</label>
+                        <select id="productBrand" required>
+                            <option value="">Select Brand</option>
+                            <option value="Nike">Nike</option>
+                            <option value="Adidas">Adidas</option>
+                            <option value="Puma">Puma</option>
+                            <option value="New Balance">New Balance</option>
+                            <option value="Reebok">Reebok</option>
+                            <option value="Converse">Converse</option>
+                            <option value="Vans">Vans</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Price (R) *</label>
+                        <input type="number" id="productPrice" required placeholder="1999.99" step="0.01" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage">Product Image (URL or Emoji) *</label>
+                        <input type="text" id="productImage" required placeholder="e.g., https://... or 👟">
+                    </div>
+                    <div class="form-group">
+                        <label for="productDescription">Description</label>
+                        <textarea id="productDescription" placeholder="Product description..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-add">Add Product</button>
+                </form>
+            </div>
+
+            <!-- Banking Details Panel -->
+            <div class="admin-panel">
+                <h2>🏦 Banking Details</h2>
+                <form id="bankingForm" onsubmit="updateBankingDetails(event)">
+                    <div class="form-group">
+                        <label for="accountName">Account Name *</label>
+                        <input type="text" id="accountName" required placeholder="AirVault Accessories">
+                    </div>
+                    <div class="form-group">
+                        <label for="bankName">Bank Name *</label>
+                        <input type="text" id="bankName" required placeholder="First National Bank">
+                    </div>
+                    <div class="form-group">
+                        <label for="accountNumber">Account Number *</label>
+                        <input type="text" id="accountNumber" required placeholder="1234567890">
+                    </div>
+                    <div class="form-group">
+                        <label for="branchCode">Branch Code *</label>
+                        <input type="text" id="branchCode" required placeholder="250155">
+                    </div>
+                    <button type="submit" class="btn-add">Update Banking Details</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Products Management Panel -->
+        <div class="admin-panel full-width">
+            <h2>📋 Manage Products</h2>
+            <div id="productsList" class="products-list"></div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Product</h2>
+                <button class="close-btn" onclick="closeEditModal()">×</button>
+            </div>
+            <form id="editForm" onsubmit="saveProduct(event)">
+                <div class="form-group">
+                    <label for="editName">Product Name</label>
+                    <input type="text" id="editName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editBrand">Brand</label>
+                    <select id="editBrand" required>
+                        <option value="Nike">Nike</option>
+                        <option value="Adidas">Adidas</option>
+                        <option value="Puma">Puma</option>
+                        <option value="New Balance">New Balance</option>
+                        <option value="Reebok">Reebok</option>
+                        <option value="Converse">Converse</option>
+                        <option value="Vans">Vans</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editPrice">Price (R)</label>
+                    <input type="number" id="editPrice" required step="0.01" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="editImage">Image (URL or Emoji)</label>
+                    <input type="text" id="editImage" required>
+                </div>
+                <div class="form-group">
+                    <label for="editDescription">Description</label>
+                    <textarea id="editDescription" placeholder="Product description..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeEditModal()">Cancel</button>
+                    <button type="submit" class="btn-save">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const defaultProducts = [
+            {id:1, name:'Air Jordan 1 Retro High', brand:'Nike', price:1499.99, image:'👟'},
+            {id:2, name:'Nike Air Max 90', brand:'Nike', price:1199.99, image:'👟'},
+            {id:3, name:'Adidas Yeezy 350', brand:'Adidas', price:1999.99, image:'👟'},
+            {id:4, name:'Puma RS-X', brand:'Puma', price:899.99, image:'👟'},
+            {id:5, name:'New Balance 990', brand:'New Balance', price:1599.99, image:'👟'},
+            {id:6, name:'Jordan Max Aura 2', brand:'Nike', price:1399.99, image:'👟'},
+            {id:7, name:'Adidas Boost Ultra', brand:'Adidas', price:1299.99, image:'👟'},
+            {id:8, name:'Puma Future Rider', brand:'Puma', price:999.99, image:'👟'},
+            {id:9, name:'New Balance 574', brand:'New Balance', price:1299.99, image:'👟'},
+            {id:10, name:'Adidas Stan Smith', brand:'Adidas', price:799.99, image:'👟'},
+            {id:11, name:'Nike Blazer Low 77', brand:'Nike', price:999.99, image:'👟'},
+            {id:12, name:'Adidas Yeezy 350 V2', brand:'Adidas', price:2299.99, image:'👟'},
+        ];
+
+        let products = JSON.parse(localStorage.getItem('adminProducts')) || defaultProducts;
+        let editingId = null;
+
+        // Initialize products in localStorage if not already done
+        function initializeProducts() {
+            const stored = localStorage.getItem('adminProducts');
+            if (!stored || JSON.parse(stored).length === 0) {
+                localStorage.setItem('adminProducts', JSON.stringify(defaultProducts));
+                products = JSON.parse(JSON.stringify(defaultProducts));
+                console.log('Products initialized with defaults');
+            }
+        }
+
+        function loadBankingDetails() {
+            const details = JSON.parse(localStorage.getItem('bankingDetails')) || {
+                accountName: 'AirVault Accessories',
+                bank: 'First National Bank',
+                accountNumber: '1234567890',
+                branchCode: '250155'
+            };
+            
+            document.getElementById('accountName').value = details.accountName;
+            document.getElementById('bankName').value = details.bank;
+            document.getElementById('accountNumber').value = details.accountNumber;
+            document.getElementById('branchCode').value = details.branchCode;
+        }
+
+        function updateBankingDetails(event) {
+            event.preventDefault();
+            const details = {
+                accountName: document.getElementById('accountName').value,
+                bank: document.getElementById('bankName').value,
+                accountNumber: document.getElementById('accountNumber').value,
+                branchCode: document.getElementById('branchCode').value
+            };
+            
+            localStorage.setItem('bankingDetails', JSON.stringify(details));
+            showStatus('✓ Banking details updated successfully!', 'success');
+        }
+
+        function addProduct(event) {
+            event.preventDefault();
+            
+            const newProduct = {
+                id: Date.now(),
+                name: document.getElementById('productName').value,
+                brand: document.getElementById('productBrand').value,
+                price: parseFloat(document.getElementById('productPrice').value),
+                image: document.getElementById('productImage').value || '👟',
+                description: document.getElementById('productDescription').value || ''
+            };
+
+            products.push(newProduct);
+            saveProducts();
+            showStatus('✓ Product added successfully!', 'success');
+            document.getElementById('addProductForm').reset();
+            loadProductsList();
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                products = products.filter(p => p.id !== id);
+                saveProducts();
+                showStatus('✓ Product deleted!', 'success');
+                loadProductsList();
+            }
+        }
+
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                editingId = id;
+                document.getElementById('editName').value = product.name;
+                document.getElementById('editBrand').value = product.brand;
+                document.getElementById('editPrice').value = product.price;
+                document.getElementById('editImage').value = product.image;
+                document.getElementById('editDescription').value = product.description || '';
+                document.getElementById('editModal').classList.add('active');
+            }
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+            editingId = null;
+        }
+
+        function saveProduct(event) {
+            event.preventDefault();
+            
+            const product = products.find(p => p.id === editingId);
+            if (product) {
+                product.name = document.getElementById('editName').value;
+                product.brand = document.getElementById('editBrand').value;
+                product.price = parseFloat(document.getElementById('editPrice').value);
+                product.image = document.getElementById('editImage').value;
+                product.description = document.getElementById('editDescription').value || '';
+                
+                saveProducts();
+                showStatus('✓ Product updated successfully!', 'success');
+                closeEditModal();
+                loadProductsList();
+            }
+        }
+
+        function saveProducts() {
+            localStorage.setItem('adminProducts', JSON.stringify(products));
+            updateStats();
+        }
+
+        function loadProductsList() {
+            const list = document.getElementById('productsList');
+            if (products.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #999;">No products added yet.</p>';
+                return;
+            }
+
+            list.innerHTML = products.map(p => {
+                const isImageUrl = typeof p.image === 'string' && (p.image.startsWith('http') || p.image.startsWith('data:'));
+                return `
+                    <div class="product-item">
+                        <div style="width: 50px; height: 50px; background: #f5f5f5; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            ${isImageUrl ? `<img src="${p.image}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">` : `<span style="font-size: 2em;">${p.image}</span>`}
+                        </div>
+                        <div class="product-info">
+                            <h4>${p.name}</h4>
+                            <p>${p.brand} • R${p.price.toFixed(2)}</p>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-small btn-edit" onclick="editProduct(${p.id})">Edit</button>
+                            <button class="btn-small btn-delete" onclick="deleteProduct(${p.id})">Delete</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.className = `status-message ${type}`;
+            setTimeout(() => {
+                statusEl.className = 'status-message';
+            }, 3000);
+        }
+
+        function updateStats() {
+            document.getElementById('totalProducts').textContent = products.length;
+            const now = new Date().toLocaleTimeString();
+            document.getElementById('lastUpdated').textContent = now;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeProducts();
+            loadBankingDetails();
+            loadProductsList();
+            updateStats();
+            
+            // Auto-sync to shopping page every 500ms
+            setInterval(() => {
+                localStorage.setItem('adminProducts', JSON.stringify(products));
+            }, 500);
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEditModal();
+            }
+        });
+    </script>
+</body>
+</html>

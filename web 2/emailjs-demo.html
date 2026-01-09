@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmation EmailJS Demo</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    function sendOrderConfirmation() {
+      emailjs.init("service_bmlh2ak");
+      const customerEmail = document.getElementById('customerEmail').value;
+      const orderDetails = document.getElementById('orderDetails').value;
+      emailjs.send("service_bmlh2ak", "template_oa4povb", {
+        to_email: customerEmail,
+        order_info: orderDetails
+      })
+      .then(function(response) {
+        alert("Order confirmation sent! " + response.status);
+      }, function(error) {
+        alert("Failed to send email: " + error.text);
+      });
+    }
+    function sendAdminAlert() {
+      emailjs.init("service_bmlh2ak");
+      const adminEmail = document.getElementById('adminEmail').value;
+      const orderDetails = document.getElementById('orderDetails').value;
+      emailjs.send("service_bmlh2ak", "template_19xkkeh", {
+        to_email: adminEmail,
+        order_info: orderDetails
+      })
+      .then(function(response) {
+        alert("Admin alert sent! " + response.status);
+      }, function(error) {
+        alert("Failed to send email: " + error.text);
+      });
+    }
+  </script>
+</head>
+<body>
+  <h1>Order Confirmation & Admin Alert Demo</h1>
+  <label>Customer Email: <input type="email" id="customerEmail"></label><br>
+  <label>Admin Email: <input type="email" id="adminEmail"></label><br>
+  <label>Order Details:<br><textarea id="orderDetails" rows="4" cols="50"></textarea></label><br>
+  <button onclick="sendOrderConfirmation()">Send Order Confirmation</button>
+  <button onclick="sendAdminAlert()">Send Admin Alert</button>
+</body>
+</html>

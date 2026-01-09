@@ -1,0 +1,28 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="300" height="300" fill="#f8f9fa" rx="10"/>
+  
+  <!-- Shoe - Adidas Yeezy Black -->
+  <g transform="translate(150, 150)">
+    <!-- Sole -->
+    <path d="M -50 75 L 50 75 L 45 65 L -45 65 Z" fill="#333" stroke="#000" stroke-width="1.5"/>
+    
+    <!-- Heel Tab -->
+    <rect x="-15" y="-35" width="30" height="25" fill="#cc1111" rx="3"/>
+    <text x="0" y="-12" font-family="Arial" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">YEEZY</text>
+    
+    <!-- Main body - knit texture -->
+    <path d="M -45 65 Q -55 50 -50 10 Q -45 -20 -15 -30 L 15 -30 Q 45 -20 50 10 Q 55 50 45 65" fill="#111"/>
+    
+    <!-- Knit pattern lines -->
+    <line x1="-40" y1="30" x2="40" y2="30" stroke="#333" stroke-width="1" opacity="0.4"/>
+    <line x1="-38" y1="20" x2="38" y2="20" stroke="#333" stroke-width="1" opacity="0.4"/>
+    <line x1="-35" y1="10" x2="35" y2="10" stroke="#333" stroke-width="1" opacity="0.4"/>
+    
+    <!-- Midfoot stripe -->
+    <ellipse cx="0" cy="55" rx="48" ry="6" fill="#222"/>
+    
+    <!-- Toe box highlight -->
+    <ellipse cx="0" cy="35" rx="40" ry="20" fill="#1a1a1a" opacity="0.5"/>
+  </g>
+</svg>

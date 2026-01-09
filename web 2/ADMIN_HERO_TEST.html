@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Hero Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .panel { border: 1px solid #ccc; padding: 20px; margin: 20px 0; }
+        input, textarea { width: 100%; padding: 10px; margin: 5px 0; box-sizing: border-box; }
+        button { padding: 10px 20px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .status { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background: #e8f5e9; color: #2e7d32; }
+        .error { background: #ffebee; color: #c62828; }
+        pre { background: #f5f5f5; padding: 10px; overflow: auto; }
+    </style>
+</head>
+<body>
+    <h1>Admin Hero Section Test</h1>
+
+    <div class="panel">
+        <h2>Edit Hero Section</h2>
+        <div id="heroStatusMessage" class="status"></div>
+        <form id="heroForm" onsubmit="saveHeroSection(event)">
+            <label>Hero Title</label>
+            <input type="text" id="heroTitle" placeholder="Authentic Sneakers for Every Style">
+            
+            <label>Hero Subtitle</label>
+            <textarea id="heroSubtitle" placeholder="Discover the world's most coveted sneaker brands..."></textarea>
+            
+            <label>Hero Image URL</label>
+            <input type="text" id="heroImageUrl" placeholder="https://example.com/hero-image.jpg">
+            
+            <button type="submit">Save Hero Section</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <h2>Current Data in localStorage</h2>
+        <button onclick="displayStoredData()">Show Stored Data</button>
+        <pre id="storedData"></pre>
+    </div>
+
+    <div class="panel">
+        <h2>Homepage Test</h2>
+        <button onclick="testHomepage()">Check if Homepage Reads Data</button>
+        <pre id="homepageTest"></pre>
+    </div>
+
+    <script>
+        // Initialize
+        let heroSection = JSON.parse(localStorage.getItem('heroSection')) || {
+            title: 'Authentic Sneakers for Every Style',
+            subtitle: 'Discover the world\'s most coveted sneaker brands at unbeatable prices',
+            imageUrl: 'images/hero-sneaker.jpg'
+        };
+
+        // Load Hero Section
+        function loadHeroSection() {
+            document.getElementById('heroTitle').value = heroSection.title;
+            document.getElementById('heroSubtitle').value = heroSection.subtitle;
+            document.getElementById('heroImageUrl').value = heroSection.imageUrl;
+        }
+
+        // Save Hero Section
+        function saveHeroSection(event) {
+            event.preventDefault();
+            console.log('Save hero clicked');
+            try {
+                heroSection = {
+                    title: document.getElementById('heroTitle').value || 'Authentic Sneakers for Every Style',
+                    subtitle: document.getElementById('heroSubtitle').value || 'Discover the world\'s most coveted sneaker brands at unbeatable prices',
+                    imageUrl: document.getElementById('heroImageUrl').value || 'images/hero-sneaker.jpg'
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('heroSection', JSON.stringify(heroSection));
+                console.log('Hero saved to localStorage:', heroSection);
+                
+                // Show success message
+                const statusEl = document.getElementById('heroStatusMessage');
+                statusEl.textContent = '✓ Hero section updated! Changes appear on homepage.';
+                statusEl.className = 'status success';
+                setTimeout(() => {
+                    statusEl.className = 'status';
+                }, 3000);
+                
+                displayStoredData();
+            } catch (error) {
+                console.error('Error saving hero:', error);
+                const statusEl = document.getElementById('heroStatusMessage');
+                statusEl.textContent = '❌ Error saving hero section: ' + error.message;
+                statusEl.className = 'status error';
+            }
+        }
+
+        function displayStoredData() {
+            const stored = localStorage.getItem('heroSection');
+            document.getElementById('storedData').textContent = stored ? JSON.stringify(JSON.parse(stored), null, 2) : 'No data in localStorage';
+        }
+
+        function testHomepage() {
+            fetch('/index.html')
+                .then(r => r.text())
+                .then(html => {
+                    const hasScript = html.includes('loadHomepageContent');
+                    const hasHeroEl = html.includes('id="heroTitle"');
+                    const hasBrandsEl = html.includes('id="brandsGrid"');
+                    
+                    let result = 'Homepage Structure:\n';
+                    result += '✓ Has hero title element: ' + (hasHeroEl ? 'YES' : 'NO') + '\n';
+                    result += '✓ Has brands grid element: ' + (hasBrandsEl ? 'YES' : 'NO') + '\n';
+                    result += '✓ Has load function: ' + (hasScript ? 'YES' : 'NO') + '\n';
+                    
+                    // Also check if localStorage is accessible from homepage context
+                    result += '\n\nCurrent heroSection in this page:\n' + JSON.stringify(heroSection, null, 2);
+                    
+                    document.getElementById('homepageTest').textContent = result;
+                });
+        }
+
+        // Auto-load on page load
+        window.addEventListener('load', () => {
+            loadHeroSection();
+            displayStoredData();
+        });
+    </script>
+</body>
+</html>

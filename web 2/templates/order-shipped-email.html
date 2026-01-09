@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Shipped - AirVault Accessories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #1a1a1a 100%);
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .logo {
+            height: 60px;
+            margin-bottom: 15px;
+        }
+        .header h1 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #fff;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px 20px;
+        }
+        .greeting {
+            color: #1a1a1a;
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .tracking-box {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .tracking-box h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .tracking-box p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .tracking-number {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            background: rgba(0,0,0,0.1);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .timeline {
+            margin: 30px 0;
+        }
+        .timeline-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #ff6b6b;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        .timeline-item.completed {
+            border-left-color: #4caf50;
+            background: #f1f8f4;
+        }
+        .timeline-item h3 {
+            color: #1a1a1a;
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+        .timeline-item p {
+            color: #666;
+            font-size: 13px;
+            margin: 3px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 20px 0;
+            transition: transform 0.3s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        .footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .footer a {
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+        .footer-links {
+            margin: 10px 0;
+        }
+        .footer-links a {
+            margin: 0 10px;
+        }
+        .highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            .email-container {
+                border-radius: 0;
+            }
+            .header {
+                padding: 20px 15px;
+            }
+            .content {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <img src="https://localhost:8000/images/logo.svg" alt="AirVault Accessories" class="logo">
+            <h1>Your Order is on the Way!</h1>
+            <p>Your sneakers have been shipped and are heading to you</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <p class="greeting">Hi <span class="highlight">{{CUSTOMER_NAME}}</span>,</p>
+            <p style="margin-bottom: 20px;">Great news! Your order has been shipped and is on its way to you. Track your package using the information below.</p>
+
+            <!-- Tracking Box -->
+            <div class="tracking-box">
+                <h2>📦 Your Package is Shipping</h2>
+                <p>Tracking Number:</p>
+                <div class="tracking-number">{{TRACKING_NUMBER}}</div>
+                <p style="margin-top: 15px;">Expected Delivery: {{EXPECTED_DELIVERY}}</p>
+            </div>
+
+            <!-- Order Details -->
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                <p><strong>Order Number:</strong> {{ORDER_NUMBER}}</p>
+                <p><strong>Carrier:</strong> {{CARRIER}}</p>
+                <p><strong>Shipping Method:</strong> {{SHIPPING_METHOD}}</p>
+            </div>
+
+            <!-- Delivery Timeline -->
+            <div class="timeline">
+                <h3 style="margin-bottom: 15px; color: #1a1a1a;">📍 Delivery Timeline</h3>
+                
+                <div class="timeline-item completed">
+                    <h3>✓ Order Confirmed</h3>
+                    <p>{{ORDER_DATE}}</p>
+                </div>
+
+                <div class="timeline-item completed">
+                    <h3>✓ Order Processed</h3>
+                    <p>{{PROCESS_DATE}}</p>
+                </div>
+
+                <div class="timeline-item completed">
+                    <h3>✓ Order Shipped</h3>
+                    <p>{{SHIP_DATE}}</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>🚚 In Transit</h3>
+                    <p>Your package is on its way</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>📦 Out for Delivery</h3>
+                    <p>Coming soon!</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>✓ Delivered</h3>
+                    <p>{{EXPECTED_DELIVERY}}</p>
+                </div>
+            </div>
+
+            <!-- Track Button -->
+            <p style="text-align: center;">
+                <a href="http://localhost:8000/tracking.html?order={{ORDER_NUMBER}}" class="cta-button">Track Your Order</a>
+            </p>
+
+            <!-- Help Section -->
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 30px; font-size: 13px;">
+                <p><strong>Need Help?</strong></p>
+                <p>If your package doesn't arrive by {{EXPECTED_DELIVERY}} or you have any concerns, please contact us:</p>
+                <p style="margin-top: 10px;">
+                    📧 Email: <a href="mailto:airvaultaccessories@gmail.com" style="color: #ff6b6b;">airvaultaccessories@gmail.com</a><br>
+                    📱 WhatsApp: <a href="https://wa.me/27834021278" style="color: #ff6b6b;">083 402 1278</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-links">
+                <a href="http://localhost:8000">Home</a>
+                <a href="http://localhost:8000/products.html">Shop</a>
+                <a href="http://localhost:8000/contact.html">Contact</a>
+            </div>
+            <p style="margin-top: 15px;">© 2026 AirVault Accessories. All rights reserved.</p>
+            <p style="margin-top: 10px; opacity: 0.7;">
+                <a href="https://instagram.com/airvaultaccessories">Instagram</a> | 
+                <a href="#">Facebook</a> | 
+                <a href="#">Twitter</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

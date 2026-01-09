@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Hero Update</title>
+</head>
+<body>
+    <h1>Hero Update Test</h1>
+    
+    <div>
+        <h2>Test 1: Direct localStorage test</h2>
+        <button onclick="testLocalStorage()">Test localStorage</button>
+        <div id="test1-result"></div>
+    </div>
+
+    <div>
+        <h2>Test 2: Admin Form Simulation</h2>
+        <input type="text" id="testTitle" value="Test Title">
+        <input type="text" id="testSubtitle" value="Test Subtitle">
+        <input type="text" id="testImageUrl" value="http://example.com/image.jpg">
+        <button onclick="simulateSaveHero()">Save Hero</button>
+        <div id="test2-result"></div>
+    </div>
+
+    <div>
+        <h2>Test 3: Check Admin Page Data</h2>
+        <button onclick="checkAdminData()">Check Admin Data</button>
+        <div id="test3-result"></div>
+    </div>
+
+    <div>
+        <h2>Test 4: Check Homepage Loads</h2>
+        <button onclick="checkHomepage()">Check Homepage</button>
+        <div id="test4-result"></div>
+    </div>
+
+    <script>
+        function testLocalStorage() {
+            try {
+                const testData = { title: 'Test Hero', subtitle: 'Test Subtitle' };
+                localStorage.setItem('heroSection', JSON.stringify(testData));
+                const retrieved = JSON.parse(localStorage.getItem('heroSection'));
+                const result = document.getElementById('test1-result');
+                result.innerHTML = `<pre style="color: green;">✓ localStorage works!\nSaved: ${JSON.stringify(testData)}\nRetrieved: ${JSON.stringify(retrieved)}</pre>`;
+            } catch (e) {
+                document.getElementById('test1-result').innerHTML = `<pre style="color: red;">✗ Error: ${e.message}</pre>`;
+            }
+        }
+
+        function simulateSaveHero() {
+            try {
+                const heroData = {
+                    title: document.getElementById('testTitle').value,
+                    subtitle: document.getElementById('testSubtitle').value,
+                    imageUrl: document.getElementById('testImageUrl').value
+                };
+                localStorage.setItem('heroSection', JSON.stringify(heroData));
+                document.getElementById('test2-result').innerHTML = `<pre style="color: green;">✓ Hero saved!\n${JSON.stringify(heroData, null, 2)}</pre>`;
+            } catch (e) {
+                document.getElementById('test2-result').innerHTML = `<pre style="color: red;">✗ Error: ${e.message}</pre>`;
+            }
+        }
+
+        function checkAdminData() {
+            try {
+                const hero = localStorage.getItem('heroSection');
+                const brands = localStorage.getItem('featuredBrands');
+                const products = localStorage.getItem('adminProducts');
+                let html = '<pre style="color: blue;">';
+                html += 'Hero Section: ' + (hero ? '✓ Found' : '✗ Not found') + '\n';
+                html += 'Featured Brands: ' + (brands ? '✓ Found' : '✗ Not found') + '\n';
+                html += 'Admin Products: ' + (products ? '✓ Found' : '✗ Not found') + '\n';
+                if (hero) html += '\nHero Data:\n' + JSON.stringify(JSON.parse(hero), null, 2);
+                html += '</pre>';
+                document.getElementById('test3-result').innerHTML = html;
+            } catch (e) {
+                document.getElementById('test3-result').innerHTML = `<pre style="color: red;">✗ Error: ${e.message}</pre>`;
+            }
+        }
+
+        function checkHomepage() {
+            try {
+                fetch('/index.html')
+                    .then(r => r.text())
+                    .then(html => {
+                        const hasHeroEl = html.includes('id="heroTitle"');
+                        const hasBrandsEl = html.includes('id="brandsGrid"');
+                        const result = document.getElementById('test4-result');
+                        result.innerHTML = `<pre style="color: ${hasHeroEl && hasBrandsEl ? 'green' : 'red'};">
+Homepage Elements:
+Hero Title Element: ${hasHeroEl ? '✓ Found' : '✗ Not found'}
+Brands Grid Element: ${hasBrandsEl ? '✓ Found' : '✗ Not found'}
+                        </pre>`;
+                    });
+            } catch (e) {
+                document.getElementById('test4-result').innerHTML = `<pre style="color: red;">✗ Error: ${e.message}</pre>`;
+            }
+        }
+
+        // Auto-run tests on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                testLocalStorage();
+                checkAdminData();
+                checkHomepage();
+            }, 500);
+        });
+    </script>
+</body>
+</html>

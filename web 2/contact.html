@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - AirVault Accessories</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <img src="images/logo.svg" alt="AirVault Accessories" class="logo-img">
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <a href="https://wa.me/27834021278" style="background: transparent; padding: 0; text-decoration: none; font-weight: bold; transition: 0.3s; display: flex; align-items: center; justify-content: center;" target="_blank" title="WhatsApp"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 35px; height: 35px; object-fit: contain;"></a>
+                    <a href="https://instagram.com/airvaultaccessories" style="background: #E1306C; color: white; padding: 8px 12px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.3s;" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <h1 style="text-align: center; color: #667eea; font-size: 2.5rem; margin-bottom: 3rem;">Get In Touch</h1>
+            
+            <div class="contact-grid">
+                <div>
+                    <form class="contact-form" onsubmit="submitContactForm(event)">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <input type="text" placeholder="Subject" required>
+                        <textarea placeholder="Your Message" required></textarea>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+
+                <div>
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        
+                        <h4><i class="fas fa-envelope" style="margin-right: 8px;"></i>Email</h4>
+                        <p><a href="mailto:airvaultaccessories@gmail.com" style="color: #667eea; text-decoration: none; font-weight: bold;">airvaultaccessories@gmail.com</a></p>
+
+                        <h4><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; display: inline-block;"> WhatsApp</h4>
+                        <p><a href="https://wa.me/27834021278" style="color: #667eea; text-decoration: none; font-weight: bold;" target="_blank">+27 (0)83 402 1278</a></p>
+                        <p style="font-size: 0.9rem; color: #666;">Click to open WhatsApp</p>
+
+                        <h4><i class="fas fa-share-alt" style="margin-right: 8px;"></i>Social Media</h4>
+                        <p>
+                            <a href="https://instagram.com/airvaultaccessories" style="color: #667eea; text-decoration: none; margin-right: 15px;" target="_blank">Instagram</a>
+                            <a href="https://facebook.com/airvaultaccessories" style="color: #667eea; text-decoration: none;" target="_blank">Facebook</a>
+                        </p>
+
+                        <h4><i class="fas fa-clock" style="margin-right: 8px;"></i>Response Time</h4>
+                        <p>We typically respond to all inquiries within 24 hours during business days. Thank you for your patience!</p>
+
+                        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+                            <h4>Quick Contact</h4>
+                            <a href="https://wa.me/27834021278" style="display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: white; padding: 10px 15px; border-radius: 5px; text-decoration: none; margin-right: 10px; margin-bottom: 10px;" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 20px; height: 20px;"> WhatsApp Us</a>
+                            <a href="https://instagram.com/airvaultaccessories" style="display: inline-flex; align-items: center; gap: 8px; background: #E1306C; color: white; padding: 10px 15px; border-radius: 5px; text-decoration: none;" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="features" style="background: white; padding: 60px 20px;">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>How do I know the sneakers are authentic?</h3>
+                    <p>All products come with a certificate of authenticity. We verify every item through rigorous quality checks and partner with authorized distributors.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>What's your return policy?</h3>
+                    <p>We offer a 30-day money-back guarantee. If you're not satisfied, simply contact us for a return shipping label.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>How long does shipping take?</h3>
+                    <p>Standard shipping takes 5-7 business days. We also offer expedited shipping options at checkout.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Do you ship internationally?</h3>
+                    <p>Yes! We ship to over 50 countries. International shipping times vary by location.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>How often do you restock?</h3>
+                    <p>We update our inventory weekly with new releases and restocks. Follow us on social media for updates!</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Do you offer bulk discounts?</h3>
+                    <p>Yes! Contact our sales team at bulk@airvault.com for wholesale and bulk order inquiries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>About Us</h4>
+                    <p>AirVault Accessories is your trusted source for authentic sneakers from all major brands.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>Email: <a href="mailto:airvaultaccessories@gmail.com">airvaultaccessories@gmail.com</a></p>
+                    <p>WhatsApp: <a href="https://wa.me/27834021278">+27 (0)83 402 1278</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#">Instagram</a>
+                        <a href="#">Facebook</a>
+                        <a href="#">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 AirVault Accessories. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize EmailJS
+        emailjs.init('service_bmlh2ak');
+
+        function submitContactForm(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const inputs = form.querySelectorAll('input');
+            const name = inputs[0].value;
+            const email = inputs[1].value;
+            const subject = inputs[2].value;
+            const message = form.querySelector('textarea').value;
+
+            emailjs.send('service_bmlh2ak', 'template_oa4povb', {
+                to_email: 'airvaultaccessories@gmail.com',
+                from_name: name,
+                from_email: email,
+                subject: subject,
+                message: message
+            }).then(
+                function(response) {
+                    alert('Message sent successfully! We\'ll respond within 24 hours.');
+                    form.reset();
+                },
+                function(error) {
+                    alert('Failed to send message. Please try again or email us directly at airvaultaccessories@gmail.com');
+                    console.error('EmailJS Error:', error);
+                }
+            );
+        }
+    </script>
+</body>
+</html>

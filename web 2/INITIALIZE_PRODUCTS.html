@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initialize Products - AirVault Accessories</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 3px solid #ff6b6b;
+            padding-bottom: 15px;
+        }
+        .status {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+        }
+        button:hover {
+            background: #ff5252;
+        }
+        .product-list {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+        .product {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .product:last-child {
+            border-bottom: none;
+        }
+        .product strong {
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Initialize Products</h1>
+        <p>Use this page to initialize or reset your product data in localStorage.</p>
+
+        <div id="status"></div>
+
+        <h2>Sample Products (Ready to Load)</h2>
+        <div class="product-list" id="productsList"></div>
+
+        <div>
+            <button onclick="initializeDefaultProducts()">✓ Load Default Products</button>
+            <button onclick="initializeEmptyCart()">✓ Clear Cart</button>
+            <button onclick="viewStoredData()">📊 View Stored Data</button>
+            <button onclick="goToAdmin()">➜ Go to Admin Portal</button>
+            <button onclick="goToShop()">➜ Go to Shop</button>
+        </div>
+
+        <h2>Stored Data Preview</h2>
+        <pre id="dataPreview" style="background: #f5f5f5; padding: 15px; border-radius: 6px; overflow-x: auto;"></pre>
+    </div>
+
+    <script>
+        const defaultProducts = [
+            {id:1, name:'Air Jordan 1 Retro High', brand:'Nike', price:1499.99, image:'👟', description:'Classic Air Jordan retro style'},
+            {id:2, name:'Nike Air Max 90', brand:'Nike', price:1199.99, image:'👟', description:'Iconic Nike Air Max design'},
+            {id:3, name:'Adidas Yeezy 350', brand:'Adidas', price:1999.99, image:'👟', description:'Limited edition Yeezy collaboration'},
+            {id:4, name:'Puma RS-X', brand:'Puma', price:899.99, image:'👟', description:'Modern retro running style'},
+            {id:5, name:'New Balance 990', brand:'New Balance', price:1599.99, image:'👟', description:'Premium New Balance model'},
+            {id:6, name:'Jordan Max Aura 2', brand:'Nike', price:1399.99, image:'👟', description:'Latest Jordan Max Aura release'},
+            {id:7, name:'Adidas Boost Ultra', brand:'Adidas', price:1299.99, image:'👟', description:'Ultra boost technology'},
+            {id:8, name:'Puma Future Rider', brand:'Puma', price:999.99, image:'👟', description:'Future-forward design'},
+            {id:9, name:'New Balance 574', brand:'New Balance', price:1299.99, image:'👟', description:'Classic 574 silhouette'},
+            {id:10, name:'Adidas Stan Smith', brand:'Adidas', price:799.99, image:'👟', description:'Timeless classic'},
+            {id:11, name:'Nike Blazer Low 77', brand:'Nike', price:999.99, image:'👟', description:'Retro basketball style'},
+            {id:12, name:'Adidas Yeezy 350 V2', brand:'Adidas', price:2299.99, image:'👟', description:'V2 enhanced version'}
+        ];
+
+        function displayProducts() {
+            const list = document.getElementById('productsList');
+            list.innerHTML = defaultProducts.map((p, i) => `
+                <div class="product">
+                    <strong>${i+1}.</strong> ${p.name} (${p.brand}) - <strong>R${p.price.toFixed(2)}</strong>
+                </div>
+            `).join('');
+        }
+
+        function initializeDefaultProducts() {
+            try {
+                localStorage.setItem('adminProducts', JSON.stringify(defaultProducts));
+                showStatus('✓ Default products loaded successfully! (12 products)', 'success');
+                viewStoredData();
+            } catch (e) {
+                showStatus('✗ Error: ' + e.message, 'error');
+            }
+        }
+
+        function initializeEmptyCart() {
+            try {
+                localStorage.setItem('cart', JSON.stringify([]));
+                showStatus('✓ Cart cleared successfully!', 'success');
+                viewStoredData();
+            } catch (e) {
+                showStatus('✗ Error: ' + e.message, 'error');
+            }
+        }
+
+        function viewStoredData() {
+            const products = JSON.parse(localStorage.getItem('adminProducts')) || [];
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            const data = {
+                'Products in Storage': products.length + ' products',
+                'Cart Items': cart.length + ' items',
+                'Storage Used': Math.round(new Blob([localStorage.getItem('adminProducts')]).size / 1024) + ' KB'
+            };
+
+            const preview = document.getElementById('dataPreview');
+            preview.textContent = JSON.stringify(data, null, 2);
+
+            showStatus(`✓ Stored data: ${products.length} products, ${cart.length} cart items`, 'info');
+        }
+
+        function showStatus(msg, type) {
+            const status = document.getElementById('status');
+            status.textContent = msg;
+            status.className = 'status ' + type;
+        }
+
+        function goToAdmin() {
+            window.location.href = 'admin-portal.html';
+        }
+
+        function goToShop() {
+            window.location.href = 'products.html';
+        }
+
+        // Display products on load
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts();
+            viewStoredData();
+        });
+    </script>
+</body>
+</html>
